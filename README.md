@@ -4,4 +4,4 @@
 MongoDB
 
 # Library
-Mongoose, Express.js, bcryptjs
+Mongoose, Express.js, bcryptjs, validator.js
