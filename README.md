@@ -4,4 +4,4 @@
 MongoDB
 
 # Library
-Mongoose, Express.js, bcryptjs, validator.js
+Mongoose, Express.js, bcryptjs, validator.js, jsonwebtoken
