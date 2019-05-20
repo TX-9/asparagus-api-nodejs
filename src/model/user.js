@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const MealPlan = require('./mealPlan');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -103,7 +104,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 }
 
 
-// Hash the plain text password before saving 
+// Middleware: Hash the plain text password before saving 
 userSchema.pre('save', async function (next){
     const user = this;
 
@@ -111,6 +112,12 @@ userSchema.pre('save', async function (next){
         user.password = await bcrypt.hash(user.password, 8);
     }
 
+    next();
+});
+// Middleware: Delete user plans when user is removed
+userSchema.pre('remove', async function (next){
+    const user = this;
+    await MealPlan.deleteMany({ owner: user._id });
     next();
 });
 

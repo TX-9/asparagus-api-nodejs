@@ -18,10 +18,11 @@ router.post('/plans', auth, async (req, res) => {
     }
 });
 
-router.get('/plans', async (req, res) => {
+router.get('/plans', auth, async (req, res) => {
     try {
-        const plans = await MealPlan.find({});
-        res.status(201).send(plans);
+        //const plans = await MealPlan.find({owner: req.user._id});
+        await req.user.populate('plans').execPopulate();
+        res.send(req.user.plans);
     } catch (e) {
         res.status(500).send(e);
     }
@@ -32,7 +33,7 @@ router.get('/plans/:id', auth, async (req, res) => {
     try {
         //const plan = await MealPlan.find(_id);
         const plan = await MealPlan.findOne({_id, owner: req.user._id});
-
+        
         if(!plan) {
             return res.status(404).send();
         }
@@ -43,7 +44,7 @@ router.get('/plans/:id', auth, async (req, res) => {
 });
 
 
-router.patch('/plans/:id', async (req, res) => {
+router.patch('/plans/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['desc'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -53,24 +54,25 @@ router.patch('/plans/:id', async (req, res) => {
     }
     
     try {
-        const plan = await MealPlan.find(req.params.id);
+        //const plan = await MealPlan.find(req.params.id);
+        const plan = await MealPlan.findOne({_id: req.params.id, owner: req.user._id});
 
-        updates.forEach((update) => plan[update] = req.body[update]);
-        await plan.save();
-        
         if(!plan) {
             return res.status(404).send();
         }
+
+        updates.forEach((update) => plan[update] = req.body[update]);
+        await plan.save();
         res.send(plan);
     } catch (e) {
         res.status(500).send(e);
     }
 });
 
-router.delete('/plans/:id', async (req, res) => {
+router.delete('/plans/:id', auth, async (req, res) => {
     try {
-        const plan = await MealPlan.findByIdAndDelete(req.params.id);
-        
+        //const plan = await MealPlan.findByIdAndDelete(req.params.id);
+        const plan = await MealPlan.findByIdAndDelete({_id: req.params.id, owner: req.user._id});
         if(!plan) {
             return res.status(404).send();
         }
