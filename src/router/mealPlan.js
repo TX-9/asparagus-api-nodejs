@@ -1,9 +1,14 @@
 const express = require('express');
 const MealPlan = require('../model/mealPlan');
+const auth = require('../middleware/auth');
 const router = new express.Router();
 
-router.post('/plans', async (req, res) => {
-    const plan = new MealPlan(req.body);
+router.post('/plans', auth, async (req, res) => {
+    //const plan = new MealPlan(req.body);
+    const plan = new MealPlan({
+        ...req.body,
+        owner: req.user._id
+    });
 
     try {
         await plan.save();

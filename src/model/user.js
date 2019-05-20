@@ -49,6 +49,13 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
+// moongoose's virtual property: relationship between two entity
+userSchema.virtual('plans', {
+    ref: 'MealPlan',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
 // userSchema.methods.getPublicProfile = function () {
 //     const user = this;
 //     const userObject = user.toObject();

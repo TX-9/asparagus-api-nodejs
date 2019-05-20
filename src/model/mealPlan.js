@@ -5,6 +5,11 @@ const MealPlan = mongoose.model('MealPlan', {
         type: String,
         required: true,
         trim: true
+    },
+    owner : {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 
