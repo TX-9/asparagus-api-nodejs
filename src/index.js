@@ -27,13 +27,24 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port);
 });
 
-const myFunction = async () => {
-    const token = jwt.sign({ _id: '1234567'}, 'jwttesting', { expiresIn: '5 days'});
-    console.log(token);
+// const myFunction = async () => {
+//     const token = jwt.sign({ _id: '1234567'}, 'jwttesting', { expiresIn: '5 days'});
+//     console.log(token);
 
-    const data = jwt.verify(token, 'jwttesting');
-    console.log(data);
-}
+//     const data = jwt.verify(token, 'jwttesting');
+//     console.log(data);
+// }
 
-myFunction();
+// myFunction();
 
+
+// send method, res.send({user}), implicitly call toJSON()  
+// const pet = {
+//     name: 'Pet'
+// }
+
+// pet.toJSON = function() {
+//     console.log(this);
+//     return {};
+// }
+// console.log(JSON.stringify(pet));
