@@ -27,11 +27,12 @@ router.get('/plans', async (req, res) => {
     }
 });
 
-router.get('/plans:id', async (req, res) => {
+router.get('/plans/:id', auth, async (req, res) => {
     const _id = req.params.id;
     try {
-        const plan = await MealPlan.find(_id);
-        
+        //const plan = await MealPlan.find(_id);
+        const plan = await MealPlan.findOne({_id, owner: req.user._id});
+
         if(!plan) {
             return res.status(404).send();
         }
@@ -42,7 +43,7 @@ router.get('/plans:id', async (req, res) => {
 });
 
 
-router.patch('/plans:id', async (req, res) => {
+router.patch('/plans/:id', async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['desc'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -66,7 +67,7 @@ router.patch('/plans:id', async (req, res) => {
     }
 });
 
-router.delete('/plans:id', async (req, res) => {
+router.delete('/plans/:id', async (req, res) => {
     try {
         const plan = await MealPlan.findByIdAndDelete(req.params.id);
         

@@ -35,9 +35,10 @@ const main = async () => {
     // const plan = await MealPlan.findById('5ce3144827622c4c9ca369d4');
     // await plan.populate('owner').execPopulate();
     // console.log(plan.owner);
-    const user = await User.findById('5ce3137d891f0f57ac62cddc');
-    await user.populate('plans').execPopulate();
-    console.log(user.plans);
+
+    // const user = await User.findById('5ce3137d891f0f57ac62cddc');
+    // await user.populate('plans').execPopulate();
+    // console.log(user.plans);
 }
 
 main();
