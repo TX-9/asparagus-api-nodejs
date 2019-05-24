@@ -1,6 +1,8 @@
 const express = require('express');
+const multer = require('multer');
 const User = require('../model/user');
 const auth = require('../middleware/auth');
+const { sendWelcomeEmail, sendCancelationEmail } = require('../email/account');
 const router = new express.Router();
 
 router.post('/users/login', async (req, res) => {
@@ -41,6 +43,7 @@ router.post('/users', async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save();
+        sendWelcomeEmail(user.email, user.name);
         const token = await user.generateAuthToken();
         res.status(201).send({user, token});
     } catch (e) {
@@ -109,11 +112,24 @@ router.delete('/users/me', auth, async (req, res) => {
         // }
 
         await req.user.remove();
+        sendCancelationEmail(req.user.email, req.user.name);
         res.send(req.user);
     } catch (e) {
         res.status(500).send();
     }
 });
 
+const upload = multer({
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, callback) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return callback(new Error('Please upload an image'))
+        }
+
+        callback(undefined, true);
+    }
+})
 
 module.exports = router;

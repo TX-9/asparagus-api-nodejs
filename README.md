@@ -5,6 +5,7 @@ MongoDB
 
 # Library
 Mongoose, Express.js, bcryptjs, validator.js, jsonwebtoken
+SendGrid
 
 # Relationship
 User has his/her own Meal plan

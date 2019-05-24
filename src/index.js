@@ -3,10 +3,8 @@ require('./db/mongoose');
 const userRouter = require('./router/user');
 const planRouter = require('./router/mealPlan');
 
-const jwt = require('jsonwebtoken');
-
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // middleware: new request -> do something -> run route handler
 // app.use((req, res, next) => {

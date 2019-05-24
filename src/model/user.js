@@ -115,11 +115,11 @@ userSchema.pre('save', async function (next){
     next();
 });
 // Middleware: Delete user plans when user is removed
-userSchema.pre('remove', async function (next){
-    const user = this;
-    await MealPlan.deleteMany({ owner: user._id });
-    next();
-});
+// userSchema.pre('remove', async function (next){
+//     const user = this;
+//     await MealPlan.deleteMany({ owner: user._id });
+//     next();
+// });
 
 const User = mongoose.model('User', userSchema);
 
