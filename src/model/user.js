@@ -47,7 +47,12 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    picture: {
+        type: Buffer
+    }
+}, {
+    timestamps: true
 });
 
 // moongoose's virtual property: relationship between two entity
