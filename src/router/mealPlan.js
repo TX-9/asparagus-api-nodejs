@@ -18,10 +18,35 @@ router.post('/plans', auth, async (req, res) => {
     }
 });
 
+/*
+GET /plans?active=true
+GET /plans?limit=10&skip=10
+GET /plans?sortBy=createdAt:desc
+*/
 router.get('/plans', auth, async (req, res) => {
+    const match = {};
+    const sort = {};
+
+    if(req.query.active) {
+        match.active = req.query.active === 'true';
+    }
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':');
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+    }
+
     try {
         //const plans = await MealPlan.find({owner: req.user._id});
-        await req.user.populate('plans').execPopulate();
+        await req.user.populate({
+            path: 'plans',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            }
+        }).execPopulate();
         res.send(req.user.plans);
     } catch (e) {
         res.status(500).send(e);
@@ -46,7 +71,7 @@ router.get('/plans/:id', auth, async (req, res) => {
 
 router.patch('/plans/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['desc'];
+    const allowedUpdates = ['desc', 'active'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
     if(!isValidOperation) {
