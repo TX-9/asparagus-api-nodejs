@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MealPlan = mongoose.model('MealPlan', {
+const mealPlanSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true,
@@ -11,6 +11,11 @@ const MealPlan = mongoose.model('MealPlan', {
         required: true,
         ref: 'User'
     }
+    
+}, {
+    timestamps: true
 })
+
+const MealPlan = mongoose.model('MealPlan', mealPlanSchema);
 
 module.exports = MealPlan;
