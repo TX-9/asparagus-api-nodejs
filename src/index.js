@@ -1,9 +1,5 @@
-const express = require('express');
-require('./db/mongoose');
-const userRouter = require('./router/user');
-const planRouter = require('./router/mealPlan');
+const app = require('./app');
 
-const app = express();
 const port = process.env.PORT;
 
 // middleware: new request -> do something -> run route handler
@@ -19,9 +15,6 @@ const port = process.env.PORT;
 //     res.status(503).send('Service is currently down. Try later');
 // });
 
-app.use(express.json());
-app.use(userRouter);
-app.use(planRouter);
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port);

@@ -13,3 +13,6 @@ Meal plan has date, time, dish
 Meal plan is regular or invitation
 Dish has recipe
 Recipe has ingredients
+
+# Production URL
+https://asparagusj.herokuapp.com
