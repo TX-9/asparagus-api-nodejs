@@ -15,4 +15,4 @@ Dish has recipe
 Recipe has ingredients
 
 # Production URL
-https://asparagusj.herokuapp.com
+https://asparagusapi.herokuapp.com
