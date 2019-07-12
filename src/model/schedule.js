@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mealPlanSchema = new mongoose.Schema({
+const scheduleSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true,
@@ -20,6 +20,6 @@ const mealPlanSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const MealPlan = mongoose.model('MealPlan', mealPlanSchema);
+const Schedule = mongoose.model('Schedule', scheduleSchema);
 
-module.exports = MealPlan;
+module.exports = Schedule;

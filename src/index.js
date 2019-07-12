@@ -20,10 +20,10 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port);
 });
 
-const MealPlan = require('./model/mealPlan');
+const Schedule = require('./model/schedule');
 const User = require('./model/user');
 const main = async () => {
-    // const plan = await MealPlan.findById('5ce3144827622c4c9ca369d4');
+    // const plan = await Schedule.findById('5ce3144827622c4c9ca369d4');
     // await plan.populate('owner').execPopulate();
     // console.log(plan.owner);
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const MealPlan = require('./mealPlan');
+const Schedule = require('./schedule');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema({
 
 // moongoose's virtual property: relationship between two entity
 userSchema.virtual('plans', {
-    ref: 'MealPlan',
+    ref: 'Schedule',
     localField: '_id',
     foreignField: 'owner'
 })
@@ -122,7 +122,7 @@ userSchema.pre('save', async function (next){
 // Middleware: Delete user plans when user is removed
 // userSchema.pre('remove', async function (next){
 //     const user = this;
-//     await MealPlan.deleteMany({ owner: user._id });
+//     await Schedule.deleteMany({ owner: user._id });
 //     next();
 // });
 
