@@ -1,11 +1,11 @@
 const express = require('express');
-const MealPlan = require('../model/mealPlan');
+const Schedule = require('../model/schedule');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
 router.post('/plans', auth, async (req, res) => {
-    //const plan = new MealPlan(req.body);
-    const plan = new MealPlan({
+    //const plan = new Schedule(req.body);
+    const plan = new Schedule({
         ...req.body,
         owner: req.user._id
     });
@@ -37,7 +37,7 @@ router.get('/plans', auth, async (req, res) => {
     }
 
     try {
-        //const plans = await MealPlan.find({owner: req.user._id});
+        //const plans = await Schedule.find({owner: req.user._id});
         await req.user.populate({
             path: 'plans',
             match,
@@ -56,8 +56,8 @@ router.get('/plans', auth, async (req, res) => {
 router.get('/plans/:id', auth, async (req, res) => {
     const _id = req.params.id;
     try {
-        //const plan = await MealPlan.find(_id);
-        const plan = await MealPlan.findOne({_id, owner: req.user._id});
+        //const plan = await Schedule.find(_id);
+        const plan = await Schedule.findOne({_id, owner: req.user._id});
         
         if(!plan) {
             return res.status(404).send();
@@ -79,8 +79,8 @@ router.patch('/plans/:id', auth, async (req, res) => {
     }
     
     try {
-        //const plan = await MealPlan.find(req.params.id);
-        const plan = await MealPlan.findOne({_id: req.params.id, owner: req.user._id});
+        //const plan = await Schedule.find(req.params.id);
+        const plan = await Schedule.findOne({_id: req.params.id, owner: req.user._id});
 
         if(!plan) {
             return res.status(404).send();
@@ -96,8 +96,8 @@ router.patch('/plans/:id', auth, async (req, res) => {
 
 router.delete('/plans/:id', auth, async (req, res) => {
     try {
-        //const plan = await MealPlan.findByIdAndDelete(req.params.id);
-        const plan = await MealPlan.findByIdAndDelete({_id: req.params.id, owner: req.user._id});
+        //const plan = await Schedule.findByIdAndDelete(req.params.id);
+        const plan = await Schedule.findByIdAndDelete({_id: req.params.id, owner: req.user._id});
         if(!plan) {
             return res.status(404).send();
         }

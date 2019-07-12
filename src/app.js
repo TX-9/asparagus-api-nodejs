@@ -2,7 +2,7 @@ const express = require('express');
 require('./db/mongoose');
 const homeRouter = require('./router/home');
 const userRouter = require('./router/user');
-const planRouter = require('./router/mealPlan');
+const planRouter = require('./router/schedule');
 
 const app = express();
 app.use(express.json());
