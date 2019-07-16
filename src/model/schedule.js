@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const scheduleSchema = new mongoose.Schema({
+    subject: {
+        type: String,
+        required: true,
+        trim: true
+    },
     desc: {
         type: String,
         required: true,
@@ -11,7 +16,7 @@ const scheduleSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    active: {
+    status: {
         type: Boolean,
         default: true
     }
