@@ -96,8 +96,8 @@ router.patch('/plans/:id', auth, async (req, res) => {
 
 router.delete('/plans/:id', auth, async (req, res) => {
     try {
-        //const plan = await Schedule.findByIdAndDelete(req.params.id);
-        const plan = await Schedule.findByIdAndDelete({_id: req.params.id, owner: req.user._id});
+        const plan = await Schedule.findByIdAndDelete(req.params.id);
+        //const plan = await Schedule.findByIdAndDelete({_id: req.params.id, owner: req.user._id});
         if(!plan) {
             return res.status(404).send();
         }

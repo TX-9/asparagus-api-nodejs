@@ -5,7 +5,7 @@ const User = require('../model/user');
 const auth = async (req, res, next) => {
     try {
         // bypass auth for testing  
-        const user = await User.findOne({ _id: "5d27df28602f3b3d609af987"});
+        const user = await User.findOne({ _id: "5d76dddf478fbe2a1c26cefa"});
         if(!user) {
             throw new Error();
         }

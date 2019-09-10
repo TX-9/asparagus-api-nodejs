@@ -19,6 +19,9 @@ const scheduleSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: true
+    },
+    date: {
+        type: Date
     }
     
 }, {
